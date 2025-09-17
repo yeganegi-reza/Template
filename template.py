@@ -81,8 +81,6 @@ def create_project_structure(project_name):
         f"{project_name}/requirements.txt",
         f"{project_name}/README.py",
         f"{project_name}/setup.py",
-        f"{project_name}/exception/__init__.py",
-        f"{project_name}/exception/_exception.py",
         f"{project_name}/logger/__init__.py",
         f"{project_name}/logger/_logger.py",
     ]
