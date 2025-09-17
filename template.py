@@ -81,8 +81,6 @@ def create_project_structure(project_name):
         f"{project_name}/requirements.txt",
         f"{project_name}/README.py",
         f"{project_name}/setup.py",
-        f"{project_name}/logger/__init__.py",
-        f"{project_name}/logger/_logger.py",
     ]
 
     for file_path in list_of_files:
@@ -98,20 +96,6 @@ def create_project_structure(project_name):
         else:
             logging.info(f"the file {file_name} already exists")
 
-    files_to_copy = [
-        f"modules/exception/__init__.py",
-        f"modules/exception/_exception.py",
-        f"modules/logger/__init__.py",
-        f"modules/logger/_logger.py",
-    ]
-
-    for file_name in files_to_copy:
-        new_file_name = os.path.join(str(project_name), file_name.replace("modules/", ""))
-        logging.info(f"Coping the file from: {file_name} to {new_file_name}")
-
-        logging.info(f"Coping the file from: {file_name} to {new_file_name}")
-        shutil.copy2(file_name, new_file_name, follow_symlinks=True)
-
 
 def copy_git_ignore(project_dir):
     file_name = ".gitignore"
@@ -124,7 +108,7 @@ if __name__ == "__main__":
     parse = get_parser()
     params = parse.parse_args()
     project_name = params.project_name
-    repo_url = params.repo_url 
+    repo_url = params.repo_url
     project_dir = create_project_dir(project_name=project_name)
     create_project_structure(project_name)
     copy_git_ignore(project_dir)
