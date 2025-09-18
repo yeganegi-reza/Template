@@ -81,6 +81,7 @@ def create_project_structure(project_name):
         f"{project_name}/requirements.txt",
         f"{project_name}/README.py",
         f"{project_name}/setup.py",
+        f"{project_name}/artifacts/data_config.yaml",
     ]
 
     for file_path in list_of_files:
@@ -95,6 +96,17 @@ def create_project_structure(project_name):
                 logging.info(f"Creating empty file: {file_name}")
         else:
             logging.info(f"the file {file_name} already exists")
+
+    files_to_copy = [
+        f"modules/constants/__init__.py",
+    ]
+
+    for file_name in files_to_copy:
+        new_file_name = os.path.join(str(project_name), file_name.replace("modules/", ""))
+        logging.info(f"Coping the file from: {file_name} to {new_file_name}")
+
+        logging.info(f"Coping the file from: {file_name} to {new_file_name}")
+        shutil.copy2(file_name, new_file_name, follow_symlinks=True)
 
 
 def copy_git_ignore(project_dir):
