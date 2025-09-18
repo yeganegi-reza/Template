@@ -4,8 +4,8 @@ import shutil
 import argparse
 
 from pathlib import Path
-from modules.logger import logging
-from modules.exception import CustomException
+from reytools.logger import logging
+from reytools.exception import CustomException
 
 
 import subprocess
@@ -102,9 +102,7 @@ def create_project_structure(project_name):
     ]
 
     for file_name in files_to_copy:
-        new_file_name = os.path.join(str(project_name), file_name.replace("modules/", ""))
-        logging.info(f"Coping the file from: {file_name} to {new_file_name}")
-
+        new_file_name = os.path.join(str(project_name), "src", file_name.replace("modules/", ""))
         logging.info(f"Coping the file from: {file_name} to {new_file_name}")
         shutil.copy2(file_name, new_file_name, follow_symlinks=True)
 
@@ -117,15 +115,15 @@ def copy_git_ignore(project_dir):
 
 
 if __name__ == "__main__":
-    parse = get_parser()
-    params = parse.parse_args()
-    project_name = params.project_name
-    repo_url = params.repo_url
+    # parse = get_parser()
+    # params = parse.parse_args()
+    project_name = "test"
+    # repo_url = params.repo_url
     project_dir = create_project_dir(project_name=project_name)
     create_project_structure(project_name)
-    copy_git_ignore(project_dir)
-    init_repo(project_dir=project_dir)
-    add_submodule_to_project(project_dir)
-    add_files_to_git(project_dir=project_dir)
-    first_commit(project_dir=project_dir)
-    first_push(project_dir=project_dir, repo_url=repo_url)
+    # copy_git_ignore(project_dir)
+    # init_repo(project_dir=project_dir)
+    # add_submodule_to_project(project_dir)
+    # add_files_to_git(project_dir=project_dir)
+    # first_commit(project_dir=project_dir)
+    # first_push(project_dir=project_dir, repo_url=repo_url)
