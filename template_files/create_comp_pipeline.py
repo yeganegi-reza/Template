@@ -28,6 +28,21 @@ def create_comp_dir(comp_dir):
     os.makedirs(comp_dir, exist_ok=True)
 
 
+def create_conf_file(comp_dir):
+    config_dir = Path(os.path.join(comp_dir, "config"))
+    os.makedirs(config_dir, exist_ok=True)
+    conf_file_path = Path(os.path.join(config_dir, "config.yaml"))
+    with open(conf_file_path, "w") as file:
+        pass
+
+
+def create_param_file(comp_dir):
+    conf_file_path = Path(os.path.join(comp_dir, "param.yaml"))
+    with open(conf_file_path, "w") as file:
+        pass
+
+
+
 def create_pipeline_dir(pipeline_dir_path):
     os.makedirs(pipeline_dir_path, exist_ok=True)
 
@@ -43,7 +58,7 @@ def check_comp_name(comp_name: str):
 
 
 cur_dir = os.path.dirname(os.path.abspath(__file__))
-comp_name = "data ingestion"
+comp_name = "model trainig"
 
 file_name, class_name = check_comp_name(comp_name=comp_name)
 comp_dir = Path(os.path.join(cur_dir, "src", "components", file_name))
@@ -52,5 +67,7 @@ pipeline_dir_path = Path(os.path.join(cur_dir, "src", "pipeline"))
 pipeline_file_path = Path(os.path.join(pipeline_dir_path, f"stage_{file_name}.py"))
 create_pipeline_dir(pipeline_dir_path)
 create_comp_dir(comp_dir)
+create_conf_file(comp_dir)
+create_param_file(comp_dir)
 create_comp(class_name, comp_file_path)
 create_pipeline(class_name, pipeline_file_path)

@@ -93,11 +93,21 @@ def create_project_structure(project_name):
         else:
             logging.info(f"the file {file_name} already exists")
 
+
 def copy_comp_creators_files(project_dir):
     files_to_copy = ["comp.txt", "pipeline.txt", "create_comp_pipeline.py"]
     for file_name in files_to_copy:
         file_path = Path(os.path.join("template_files", file_name))
         new_file_name = Path(project_dir)
+        logging.info(f"Coping the file from: {file_path} to {new_file_name}")
+        shutil.copy2(file_path, new_file_name, follow_symlinks=True)
+
+
+def copy_config_class_files(project_dir):
+    files_to_copy = ["configurations.py", "__init__.py"]
+    for file_name in files_to_copy:
+        file_path = Path(os.path.join("template_files", "config", file_name))
+        new_file_name = Path(project_dir, "src", "config")
         logging.info(f"Coping the file from: {file_path} to {new_file_name}")
         shutil.copy2(file_path, new_file_name, follow_symlinks=True)
 
@@ -115,16 +125,16 @@ if __name__ == "__main__":
     project_name = params.project_name
     repo_url = params.repo_url
     project_dir = create_project_dir(project_name=project_name)
-
     try:
         create_project_structure(project_name)
         copy_comp_creators_files(project_dir=project_name)
         copy_git_ignore(project_dir)
-        # init_repo(project_dir=project_dir)
-        # add_submodule_to_project(project_dir)
-        # add_files_to_git(project_dir=project_dir)
-        # first_commit(project_dir=project_dir)
-        # first_push(project_dir=project_dir, repo_url=repo_url)
+        copy_config_class_files(project_dir)
+        init_repo(project_dir=project_dir)
+        add_submodule_to_project(project_dir)
+        add_files_to_git(project_dir=project_dir)
+        first_commit(project_dir=project_dir)
+        first_push(project_dir=project_dir, repo_url=repo_url)
     except Exception as e:
         if os.path.exists(project_dir):
             shutil.rmtree(project_dir)
