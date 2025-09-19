@@ -28,22 +28,29 @@ def create_comp_dir(comp_dir):
     os.makedirs(comp_dir, exist_ok=True)
 
 
+def create_pipeline_dir(pipeline_dir_path):
+    os.makedirs(pipeline_dir_path, exist_ok=True)
+
+
 def check_comp_name(comp_name: str):
     splits = comp_name.split(" ")
-    assert len(splits) == 2
     cap_splits = [s.capitalize() for s in splits]
-    file_name = splits[0] + "_" + splits[1]
-    class_name = cap_splits[0] + cap_splits[1]
+    file_name = splits[0]
+    for i in range(1, len(splits)):
+        file_name += "_" + splits[i]
+    class_name = "".join(cap_splits)
     return file_name, class_name
 
 
 cur_dir = os.path.dirname(os.path.abspath(__file__))
-comp_name = "test comp"
+comp_name = "data ingestion"
 
 file_name, class_name = check_comp_name(comp_name=comp_name)
 comp_dir = Path(os.path.join(cur_dir, "src", "components", file_name))
 comp_file_path = Path(os.path.join(comp_dir, f"_{file_name}.py"))
-pipeline_file_path = Path(os.path.join(cur_dir, "src", "pipeline", f"stage_{file_name}.py"))
+pipeline_dir_path = Path(os.path.join(cur_dir, "src", "pipeline"))
+pipeline_file_path = Path(os.path.join(pipeline_dir_path, f"stage_{file_name}.py"))
+create_pipeline_dir(pipeline_dir_path)
 create_comp_dir(comp_dir)
 create_comp(class_name, comp_file_path)
 create_pipeline(class_name, pipeline_file_path)
