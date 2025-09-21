@@ -78,6 +78,8 @@ def create_project_structure(project_name):
         f"{project_name}/requirements.txt",
         f"{project_name}/README.py",
         f"{project_name}/setup.py",
+        f"{project_name}/Dockerfile",
+        f"{project_name}/templates/index.html",
     ]
 
     for file_path in list_of_files:
@@ -118,6 +120,11 @@ def copy_git_ignore(project_dir):
     logging.info(f"Coping the file from: {file_name} to {new_file_name}")
     shutil.copy2(file_name, new_file_name, follow_symlinks=True)
 
+def copy_dockerfile(project_dir):
+    file_name = "DockerFile"
+    new_file_name = os.path.join(project_dir, "DockerFile")
+    logging.info(f"Coping the file from: {file_name} to {new_file_name}")
+    shutil.copy2(file_name, new_file_name, follow_symlinks=True)
 
 if __name__ == "__main__":
     parse = get_parser()
@@ -129,6 +136,7 @@ if __name__ == "__main__":
         create_project_structure(project_name)
         copy_comp_creators_files(project_dir=project_name)
         copy_git_ignore(project_dir)
+        copy_dockerfile(project_dir)
         copy_config_class_files(project_dir)
         init_repo(project_dir=project_dir)
         add_submodule_to_project(project_dir)

@@ -40,7 +40,7 @@ class {comp_name}ParamManager(ParamManager):
         parmas = self.params
         model_def_params = {comp_name}Params()
         
-        logging.info("Model definition params loaded")
+        logging.info("{comp_name} params loaded")
         return model_def_params
 
 

@@ -4,7 +4,7 @@ from components import {comp_name}
 from reytools.exception import CustomException
 from reytools.logger import logging
 
-STAGE_NAME = "{comp_name} Stage"
+STAGE_NAME = "{comp_name}"
 
 
 class {comp_name}Pipeline:

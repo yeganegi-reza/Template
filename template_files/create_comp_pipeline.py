@@ -36,11 +36,13 @@ def create_conf_file(comp_dir):
         pass
 
 
-def create_param_file(comp_dir):
-    conf_file_path = Path(os.path.join(comp_dir, "param.yaml"))
+def create_and_init_file(comp_dir):
+    conf_file_path = Path(os.path.join(comp_dir, "params.yaml"))
     with open(conf_file_path, "w") as file:
         pass
-
+    conf_file_path = Path(os.path.join(comp_dir, "__init__.py"))
+    with open(conf_file_path, "w") as file:
+        pass
 
 
 def create_pipeline_dir(pipeline_dir_path):
@@ -68,6 +70,6 @@ pipeline_file_path = Path(os.path.join(pipeline_dir_path, f"stage_{file_name}.py
 create_pipeline_dir(pipeline_dir_path)
 create_comp_dir(comp_dir)
 create_conf_file(comp_dir)
-create_param_file(comp_dir)
+create_and_init_file(comp_dir)
 create_comp(class_name, comp_file_path)
 create_pipeline(class_name, pipeline_file_path)
