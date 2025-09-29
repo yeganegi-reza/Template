@@ -35,14 +35,19 @@ def add_files_to_git(project_dir):
     logging.info(f"All files in {project_dir} was added to the git repo")
 
 
-def add_submodule_to_project(project_dir):
+def add_reytools_to_project(project_dir):
     src_dir = os.path.join(project_dir, "src", "")
     sub_module_link = "https://github.com/yeganegi-reza/reytools.git"
     subprocess.check_call(["git", "submodule", "add", sub_module_link], cwd=src_dir)
 
+def add_reylearn_to_project(project_dir):
+    src_dir = os.path.join(project_dir, "src", "")
+    sub_module_link = "https://github.com/yeganegi-reza/reylearn.git"
+    subprocess.check_call(["git", "submodule", "add", sub_module_link], cwd=src_dir)
+
 
 def first_commit(project_dir):
-    subprocess.call(["git", "commit", "-m", "The Project Structure was created"], cwd=project_dir)
+    subprocess.call(["git", "commit", "-m", "The Project Structure created"], cwd=project_dir)
     logging.info(f"Project first commit in {project_dir}")
 
 
@@ -66,17 +71,18 @@ def get_parser() -> argparse.ArgumentParser:
 
 def create_project_structure(project_name):
     list_of_files = [
-        f"{project_name}/.github/workflows/.gitkeep",
+        f"{project_name}/.github/workflows/main.yaml",
         f"{project_name}/src/__init__.py",
         f"{project_name}/src//components/__init__.py",
         f"{project_name}/src/config/configurations.py",
         f"{project_name}/src/config/__init__.py",
         f"{project_name}/src/pipeline/__init__.py",
+        f"{project_name}/src/tools/__init__.py",
         f"{project_name}/EDA/trials.ipynb",
         f"{project_name}/config/project_config.yaml",
         f"{project_name}/dvc.yaml",
         f"{project_name}/requirements.txt",
-        f"{project_name}/README.py",
+        f"{project_name}/README.md",
         f"{project_name}/setup.py",
         f"{project_name}/Dockerfile",
         f"{project_name}/templates/index.html",
@@ -139,7 +145,8 @@ if __name__ == "__main__":
         copy_dockerfile(project_dir)
         copy_config_class_files(project_dir)
         init_repo(project_dir=project_dir)
-        add_submodule_to_project(project_dir)
+        add_reytools_to_project(project_dir)
+        add_reylearn_to_project(project_dir) 
         add_files_to_git(project_dir=project_dir)
         first_commit(project_dir=project_dir)
         first_push(project_dir=project_dir, repo_url=repo_url)
